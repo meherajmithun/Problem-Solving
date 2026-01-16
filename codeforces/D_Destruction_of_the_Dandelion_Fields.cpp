@@ -1,0 +1,66 @@
+//  IN THE NAME OF ALLAH
+
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define endl '\n'
+#define print(x) cout << x << '\n'
+#define ll long long
+const ll N = (ll) 3e7+5;
+const ll mod = (ll) 1e9+7;
+const ll inf = (ll) 1e18;
+int dx[] = {0, 0, +1, -1};
+int dy[] = {+1, -1, 0, 0};
+// int dx[] = {+1, 0, -1, 0, +1, +1, -1, -1};
+// int dy[] = {0, +1, 0, -1, +1, -1, +1, -1};
+
+void solve() {
+    int n; cin>>n;
+    vector<int>v(n),v2;
+    for(auto &u : v) cin>>u;
+    int on = 0;
+    for(auto u : v){
+        if(u&1){
+            on = 1;
+            break;
+        }
+    }   
+    if(!on){
+        cout<<"0\n";
+        return;
+    }
+    int mx = LLONG_MAX,odd=0;
+    // map<int,int>mp;
+    int ans = 0;
+    for(auto u : v){
+        if(u&1){
+            v2.push_back(u);
+            ans += u;
+        }
+        else ans += u;
+    }
+//     if(!(odd&1)){
+//         ans -= mx;
+//     }
+//    // cout<<odd<<" "<<mx<<endl;
+//    cout<<ans<<endl;
+
+    //for(auto u : v2) cout<<u<<" "; cout<<endl;
+    int sz = v2.size()/2;
+    sort(v2.begin() , v2.end());
+    for(int i=0; i<sz; i++){
+        ans -= v2[i];
+    }
+    print(ans);
+}
+
+int32_t main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    int tc = 1; cin >> tc;
+    while (tc--) {
+        solve();
+    }
+    return 0;
+}
