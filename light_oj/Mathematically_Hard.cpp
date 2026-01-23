@@ -32,9 +32,6 @@ int32_t main(){
         int a,b; cin>>a>>b;
         // for(int i=a; i<=b; i++) cout<<pre[i]<<" "; cout<<'\n';
         cout<<"Case "<<c++<<": ";
-        if(a==1 and b==1){
-            cout<<0<<'\n'; continue;
-        }
         cout<<phi[b]-phi[a-1]<<'\n';
     }
 }
