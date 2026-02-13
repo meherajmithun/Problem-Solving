@@ -1,59 +1,84 @@
-//  IN THE NAME OF ALLAH
+// IN THE NAME OF ALLAH
 
 #include <bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<ll> vl;
-typedef pair<int, int> pii;
-#define slow ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define all(v) v.begin(),v.end()
-#define nl '\n'
-#define pb push_back
-#define no cout << "NO\n"
-#define yes cout << "YES\n"
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 #define int long long
-#define double long double
+#define endl '\n'
+#define nl '\n'
+#define sz(x) ((int)(x).size())
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define print(x) cout<<x<<'\n'
+using namespace std;
 #define mod 1000000007
+const int N = 1000005;
+const int k = 10000005;
+vector<int>fact(k, 1);
+bitset<N>isprime;
+vector<int>prime;
 
-void solve() {
-    int n , m ;
-    cin >> n >> m;
-    vi v(n);
-    for(auto &u : v) cin >> u;
-    int fact = 1;
-    for(int i = 1; i <= n; i++){
-        fact *= i;
+void sieve(){
+    isprime[1]=1;
+    for (int i = 2; i * i <= N; i++){
+        if (isprime[i] == 1) continue;
+        for (int j = i * i; j < N; j += i) isprime[j] = 1;
     }
-    vi v2(n);
-    fact = fact % mod;
-    for(int i = 0; i < n; i++){
-        v2[i] = v[i]*fact;
+    for(int i=2; i<N; i++){
+        if(!isprime[i]) prime.push_back(i);
     }
-    //for(auto u : v2) cout<<u<<" ";
-    int cnt = 0;
-    for(int i = 0; i < n; i++){
-        int cnt = 0;
-        int x = v2[i];
-        for(int j = 1; j*j <= x; j++){
-            if(x%j == 0){
-                cnt++;
-            }
-            if(x / j != j){
-                cnt++;
-            }
-        }
-        cout<<cnt<<" ";
-    }
-    cout<<endl;   
+    // for(int i=0; i<21; i++) cout<<prime[i]<<" "; cout<<nl;
 }
 
-int32_t main() {
-    slow;
-    int tc = 1;
-    //cin >> tc;
-    while (tc--) {
+
+void factorial(){
+    for(int i=2; i<k; i++){
+        fact[i] = (1LL*fact[i-1]*i)%mod;
+    }
+    // for(int i=1; i<10; i++) cout<<fact[i]<<" "; cout<<nl;
+}
+
+int nod(int n){
+    int ans = 1;
+    for(int i=0; prime[i]*prime[i]<=n; i++){
+        if(n%prime[i]==0){
+            int cnt = 0;
+            while(n%prime[i]==0){
+                n /= prime[i];
+                cnt++;
+            }
+            ans = (1LL*ans*(cnt+1))%mod;
+        }
+    }
+    if(n>1) ans = (1LL*ans*2)%mod;;
+    return ans;
+}
+
+void solve(){
+    factorial();
+    int n,m; cin>>n>>m;
+    vector<int>v(n);
+
+    int x = fact[m];
+
+    for(int i=0; i<n; i++){
+        int a; cin>>a;
+        v[i] = (1LL*a*x)%mod;
+    }
+    // for(auto a : v) cout<<a<<" "; cout<<nl;
+    for(auto a : v){
+        cout<<nod(a)<<" ";
+    }
+
+}
+
+int32_t main(){
+    fast
+    sieve();
+    int tc=1;
+    // cin >> tc;
+    int C = 1;
+    while(tc--){
+        // cout << "Case " << C++ << ": ";
         solve();
     }
-    return 0;
 }
