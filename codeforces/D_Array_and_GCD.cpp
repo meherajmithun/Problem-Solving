@@ -1,98 +1,52 @@
-#include <iostream>
-#include <vector>
-#include <numeric>
-#include <algorithm>
-#include <cmath>
-
+// IN THE NAME OF ALLAH
+//#pragma GCC optimize("Ofast")
+#include <bits/stdc++.h>
 using namespace std;
+#define fast ios_base::sync_with_stdio(false); cin.tie(nullptr);
+#define int long long
+#define endl '\n'
+#define nl '\n'
+#define sz(x) ((int)(x).size())
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+const int N = 10000005;
+bitset<N>isprime;
+vector<int>prime;
 
-// Function to calculate the greatest common divisor (GCD)
-int gcd(int a, int b) {
-    if (b == 0) {
-        return a;
+void sieve(){
+    isprime[1]=1;
+    for (int i = 2; i * i <= N; i++){
+        if (isprime[i] == 1) continue;
+        for (int j = i * i; j < N; j += i) isprime[j] = 1;
     }
-    return gcd(b, a % b);
+    for(int i=2; i<N; i++){
+        if(!isprime[i]) prime.push_back(i);
+    }
+
+}
+void solve() {
+    int n; cin>>n;
+    vector<int>v(n);
+    for(auto &a : v) cin>>a;
+    sort(rall(v));
+    int ans = 0;
+    int cnt=0,res=0;
+    for(int i=0; i<n; i++){
+        cnt += v[i];
+        res += prime[i];
+        if(cnt>=res) ans++;
+    }
+    // cout<<cnt<<" "<<res<<nl;
+    cout<<n-ans<<nl;
 }
 
-// Function to check if an array is ideal
-bool isIdeal(const vector<int>& arr) {
-    if (arr.size() < 2) {
-        return true; // Condition is automatically satisfied for less than 2 elements
-    }
-    for (int x : arr) {
-        if (x < 2) return false;
-    }
-    for (size_t i = 0; i < arr.size(); ++i) {
-        for (size_t j = i + 1; j < arr.size(); ++j) {
-            if (gcd(arr[i], arr[j]) != 1) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-// Function to check if an array is beautiful
-bool isBeautiful(const vector<int>& arr) {
-    if (isIdeal(arr)) return true;
-
-    vector<int> temp_arr = arr;
-    for (int i = 0; i < (1 << arr.size()); ++i) {
-        vector<int> sub_arr;
-        for (size_t j = 0; j < arr.size(); ++j) {
-            if ((i >> j) & 1) {
-                sub_arr.push_back(arr[j]);
-            }
-        }
-        if (sub_arr.empty()) continue;
-        
-        vector<int> current_sub_arr = sub_arr;
-        
-        // Try to make the sub_array ideal
-        bool possible = true;
-        for(int k = 0; k < (1 << (current_sub_arr.size() * 2)); ++k){
-            vector<int> modified_arr = current_sub_arr;
-            int cost = 0;
-            for(int bit_index = 0; bit_index < current_sub_arr.size(); ++bit_index){
-                if((k >> (bit_index * 2)) & 1){
-                    modified_arr[bit_index]++;
-                }
-                if((k >> (bit_index * 2 + 1)) & 1){
-                    modified_arr[bit_index]--;
-                }
-            }
-            if(isIdeal(modified_arr)){
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        int n;
-        cin >> n;
-        vector<int> a(n);
-        for (int i = 0; i < n; ++i) {
-            cin >> a[i];
-        }
-
-        int min_remove = n; // Initialize with the maximum possible removal count
-        for (int i = 0; i < (1 << n); ++i) {
-            vector<int> sub_arr;
-            for (int j = 0; j < n; ++j) {
-                if ((i >> j) & 1) {
-                    sub_arr.push_back(a[j]);
-                }
-            }
-            if (isBeautiful(sub_arr)) {
-                min_remove = min(min_remove, n - (int)sub_arr.size());
-            }
-        }
-        cout << min_remove << endl;
+int32_t main() {
+    fast
+    sieve();
+    int tc = 1;
+    cin >> tc;
+    while (tc--) {
+        solve();
     }
     return 0;
 }

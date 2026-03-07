@@ -15,17 +15,25 @@ void solve(){
     int n; cin>>n;
     vector<int>v(n);
     for(auto &a : v) cin>>a;
-    int cnt = 0;
-    for(int i=0; i<n; i++){
-        int k = 1LL*v[i]*v[i];
-        for(int j=v[i]; j<=min(n,k); j+=v[i]){
-            int t = i+j;
-            if(t<n and 1LL*v[t]*v[i] == j) cnt++;
-            t = i-j;
-            if(t>=0 and 1LL*v[t]*v[i] == j and v[i] != v[t]) cnt++; 
+    stack<int>st;
+    st.push(v[n-1]);
+    map<int,int>mp;
+    for(int i=n-2; i>=0; i--){
+        int t = v[i]; t++;
+        // cout<<t<<" ";
+        while(1){
+            int t2 = st.top();
+            if(t==t2) st.pop();
+            else break;
+            if(st.empty()) break;
+            // cout<<t2<<" -> ";
+            // st.pop();
         }
+        // cout<<nl;
+        st.push(v[i]);
+        // cout<<v[i]<<" -> "<<sz(st)<<nl;
     }   
-    cout<<cnt<<nl;
+    cout<<sz(st)<<nl;
 }
 
 int32_t main(){

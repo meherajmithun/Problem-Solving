@@ -13,19 +13,15 @@ using namespace std;
 
 void solve(){
     int n; cin>>n;
-    vector<int>v(n);
-    for(auto &a : v) cin>>a;
-    int cnt = 0;
-    for(int i=0; i<n; i++){
-        int k = 1LL*v[i]*v[i];
-        for(int j=v[i]; j<=min(n,k); j+=v[i]){
-            int t = i+j;
-            if(t<n and 1LL*v[t]*v[i] == j) cnt++;
-            t = i-j;
-            if(t>=0 and 1LL*v[t]*v[i] == j and v[i] != v[t]) cnt++; 
-        }
-    }   
-    cout<<cnt<<nl;
+    vector<int>ans(n);
+    for(int i=1; i<=n; i++) ans[i-1] = i;
+    if(n&1){
+        for(int i=1; i<n-2; i+=2) swap(ans[i],ans[i+1]);
+    }
+    else{
+        for(int i=1; i<n-2; i+=2) swap(ans[i],ans[i+1]);
+    }
+    for(auto a : ans) cout<<a<<" "; cout<<nl;
 }
 
 int32_t main(){

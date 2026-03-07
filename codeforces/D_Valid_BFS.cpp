@@ -1,76 +1,65 @@
-#include<bits/stdc++.h>
+// IN THE NAME OF ALLAH
+// #pragma GCC optimize("Ofast")
+#include <bits/stdc++.h>
 using namespace std;
+#define fast ios_base::sync_with_stdio(false); cin.tie(nullptr);
+#define int long long
+#define endl '\n'
+#define nl '\n'
+#define sz(x) ((int)(x).size())
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+const int N = 200005;
 
-int main(){
+vector<int>Hash(N+1);
+
+bool cmp(int a, int b){
+    return Hash[a]<Hash[b];
+}
+
+
+void solve() {
     int n; cin>>n;
     vector<int>adj[n+1];
-    for(int i=0; i<n-1; i++){
+    for(int i=1; i<n; i++){
         int u,v; cin>>u>>v;
-        adj[v].push_back(u);
         adj[u].push_back(v);
+        adj[v].push_back(u);
     }
-    vector<int>seq(n);
-    map<int,int>parent,child;
+    vector<int>v(n);
     for(int i=0; i<n; i++){
-        cin>>seq[i];
-        parent[i] = seq[i];
+        cin>>v[i];
+        Hash[v[i]] = i+1;
     }
-    // for(auto u : parent){
-    //     cout<<u.second<<" "<<u.first<<endl;
-    // }
-    vector<int>node;
+    for(int i=1; i<=n; i++) sort(all(adj[i]),cmp);
     queue<int>q;
-    q.push(1);
-    int visited[n+1] = {0};
-    int level[n+1] = {0};
-    visited[1] = 1;
-    node.push_back(1);
-    level[1] = 0;
-    int k=1;
-    child[0] = 1; 
+    vector<int>vis(n+1, 0),ans;
+    q.push(1); vis[1] = 1;
+    ans.push_back(1);
+    int i=0;
     while(!q.empty()){
         int u = q.front();
         q.pop();
         for(auto v : adj[u]){
-            if(visited[v]) continue;
+            if(vis[v]) continue;
+            vis[v]=1; q.push(v);
+            ans.push_back(v);
+        }
+        i++;
+    }
+    // for(auto a : v) cout<<a<<" "; cout<<nl;
+    // for(auto a : ans) cout<<a<<" "; cout<<nl;
+    if(ans==v) cout<<"Yes";
+    else cout<<"No";
 
-            q.push(v);
-            visited[v] = 1;
-            level[v] = level[u]+1;
-            node.push_back(v);
-            child[k++] = v;
-        }
+}
+
+int32_t main() {
+    fast
+    int tc = 1;
+    // cin >> tc;
+    while (tc--) {
+        solve();
     }
-    // for(int i=0; i<n; i++){
-    //     cout<<node[i]<<" "<<level[node[i]]<<endl;
-    // }
-    int on=0,off=0;
-    for(int i=0; i<n; i++){
-        if(parent[i]>=child[i]){
-            on = 1;
-        }
-        if(on and off==0){
-            if(parent[i] < child[i]){
-                cout<<"No";
-                return 0;
-            }
-        }
-        else if(parent[i] <=child[i]){
-            off = 1;
-        }
-        if(on == 0 and off){
-            if(parent[i] > child[i]){
-                cout<<"No";
-                return 0;
-            }
-        }
-    }
-    //for(auto u : child) cout<<u.second<<" "<<u.first<<endl;
-    // for(int i=1; i<n; i++){
-    //     if(level[node[i-1]] > level[node[i]]){
-    //         cout<<"No";
-    //         return 0;
-    //     }
-    // }
-    cout<<"Yes";
+    return 0;
 }
