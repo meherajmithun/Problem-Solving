@@ -14,7 +14,8 @@ void solve() {
     int n; cin>>n;
     vector<int>v(n),pos(2*n+1, 0);
     for(int i=0; i<n; i++){
-        cin>>v[i]; pos[v[i]]=i+1;
+        cin>>v[i]; 
+        pos[v[i]]=i+1;
     }
     sort(all(v));
     int cnt = 0;
