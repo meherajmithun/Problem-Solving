@@ -10,13 +10,23 @@ using namespace std;
 #define rall(x) (x).rbegin(), (x).rend()
 
 void solve() {
-    
+    int n; cin>>n;
+    vector<int>v(n);
+    for(auto &a : v) cin>>a;
+    vector<int>v2 = v;
+    sort(all(v2));
+    int cnt = 0;
+    for(int i=0; i<n; i++){
+        if(v[i]!=v2[i]) cnt++;
+    }
+    cout<<cnt<<nl; return;
+
 }
 
 int32_t main() {
     fast
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--) {
         solve();
     }

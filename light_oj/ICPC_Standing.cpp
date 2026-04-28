@@ -10,14 +10,20 @@ using namespace std;
 #define rall(x) (x).rbegin(), (x).rend()
 
 void solve() {
-    
+	int n,s,p; cin>>n>>s>>p;
+	if(n==s and p!=1){
+		cout<<"No\n";
+	}
+	else cout<<"Yes\n";
 }
 
 int32_t main() {
     fast
     int tc = 1;
     cin >> tc;
+    int w = 1;
     while (tc--) {
+        cout << "Case " << w++ << ": ";
         solve();
     }
     return 0;

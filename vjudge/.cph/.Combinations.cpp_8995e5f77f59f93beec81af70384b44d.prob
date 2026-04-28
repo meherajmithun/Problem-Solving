@@ -1,0 +1,1 @@
+{"name":"Local: Combinations","url":"/home/meheraj/CP/problem-solving/vjudge/Combinations.cpp","tests":[{"id":1775395479172,"input":"3\n4 2\n5 0\n6 4\n","output":"Case 1: 6\nCase 2: 1\nCase 3: 15\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/meheraj/CP/problem-solving/vjudge/Combinations.cpp","group":"local","local":true}

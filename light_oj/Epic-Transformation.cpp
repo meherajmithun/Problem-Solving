@@ -10,21 +10,32 @@ using namespace std;
 #define rall(x) (x).rbegin(), (x).rend()
 
 void solve() {
-    int n; cin>>n;
-    vector<int>v(n);
-    for(auto &a : v) cin>>a;
-    int cnt = 0;
-    for(int i=0; i<n; i++){
-        int mn = v[i],mx=v[i];
-        int g = 0;
-        for(int j=i; j<min(n, i+50); j++){
-            mn = min(mn,v[j]);
-            mx = max(mx, v[j]);
-            g = gcd(g,v[j]);
-            if(mx-mn == g) cnt++;
-        }
-    }
-    cout<<cnt<<nl;
+	int n; cin>>n;
+	map<int,int>mp;
+	for(int i=0; i<n; i++){
+		int a; cin>>a;
+		mp[a]++;
+	}
+	priority_queue<int>pq;
+	for(auto [a,b] : mp) pq.push(b);
+	if(sz(pq)==1){
+		cout<<n<<nl; return;
+	}
+	while(!pq.empty()){
+		// cout<<pq.top()<<" "; pq.pop();
+		int a = pq.top(); pq.pop();
+		if(pq.empty()) {
+		    pq.push(a); break;
+		}
+		int b = pq.top(); pq.pop();
+// 		cout<<a<<" "<<b<<" ";
+		a--; b--;
+		if(a>0) pq.push(a);
+		if(b>0) pq.push(b);
+		
+	}
+	if(sz(pq)==0){cout<<"0\n"; return;}
+	cout<<pq.top()<<nl;
 }
 int32_t main() {
     fast
