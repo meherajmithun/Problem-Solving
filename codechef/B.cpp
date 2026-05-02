@@ -1,30 +1,45 @@
-/*
-  IN THE NAME OF ALLAH
-  Author: Meheraj Mithun
-  Bangladesh University Of Businness and Teachnology
-*/
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+#define int long long
 
-int solve(){
-	int a,b,c;
-	cin>>a>>b>>c;
-	for(int i = 1; i <= a ; i++){
-		if(i * b > c){
-            return a-(i-1);
-		}
-	}
-	return 0;
+void solve() {
+    int n; cin >> n;
+    vector<int> a(n);
+
+    int total = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+        total += a[i];
+    }
+
+    // Compute suffix max
+    vector<int> suf(n);
+    suf[n-1] = a[n-1];
+    for (int i = n-2; i >= 0; i--) {
+        suf[i] = max(a[i], suf[i+1]);
+    }
+
+    int not_moved = 0;
+    bool can_reduce = false;
+
+    for (int i = 0; i < n; i++) {
+        int mx_right = (i == n-1 ? 0 : suf[i+1]);
+        not_moved += min(a[i], mx_right);
+
+        if (a[i] <= mx_right) {
+            can_reduce = true;
+        }
+    }
+
+    if (can_reduce) not_moved--;
+
+    cout << total - not_moved << '\n';
 }
-int main(){
-	int t;
-	cin>>t;
-	while(t--){
-		cout<<solve()<<endl;
-	}
+
+int32_t main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t; cin >> t;
+    while (t--) solve();
 }
-
-
-
-vector ta re sort kore then unique kore check korlam.if unique == x Good and so on
-int sz = unique(v.begin() , v.end())-v.begin();
