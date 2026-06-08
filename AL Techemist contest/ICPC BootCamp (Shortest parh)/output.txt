@@ -1,12 +1,2 @@
-Case 1:
-4
-0
-3
-7
-7
-Case 2:
-4
-0
-3
-Impossible
-Impossible
+Case 1: 150
+Case 2: 450
