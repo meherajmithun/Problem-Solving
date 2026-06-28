@@ -1,60 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define int long long
 
-const long long MOD = 998244353;
-
-long long modpow(long long a, long long b) {
-    long long r = 1;
-    while (b) {
-        if (b & 1) r = r * a % MOD;
-        a = a * a % MOD;
-        b >>= 1;
+void solve(){
+    int n; cin>>n;
+    vector<int>v(n);
+    for(auto &a : v) cin>>a;
+    int cnt = count(v.begin() , v.end(), 1);
+    if(cnt==n){
+        cout<<"0\n"; return;
     }
-    return r;
+    if(cnt>0){
+        int ans = 0;
+        for(int i=0; i<n; i++){
+            if(v[i]!=1){
+                if(i==0 or v[i-1]==1) ans++;
+            }
+        }
+        cout<<ans<<endl;
+        return;
+    }
+    int ans = 0;
+    for(int i=0; i<n; i++){
+        if(i==0 or v[i]!=v[i-1]) ans++;    }
+    cout<<ans<<endl;
 }
 
-void solve() {
-    int n;
-    cin >> n;
-
-    vector<int> a(n);
-    vector<int> pos;
-
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-        if (a[i] == -1) pos.push_back(i);
-    }
-
-    int k = (int)pos.size();
-
-    long long ans = 0;
-
-    for (int mask = 0; mask < (1 << k); mask++) {
-
-        vector<int> s = a;
-
-        for (int j = 0; j < k; j++) {
-            s[pos[j]] = (mask >> j) & 1;
-        }
-
-        int cnt = 0;
-
-        for (int i = 1; i + 1 < n; i++) {
-            if (s[i - 1] == s[i + 1]) cnt++;
-        }
-
-        ans = (ans + modpow(2, cnt)) % MOD;
-    }
-
-    cout << ans % MOD << '\n';
-}
-
-int main() {
+int32_t main(){
     ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    cin.tie(NULL);
 
-    int T;
-    cin >> T;
-
-    while (T--) solve();
+    int tc = 1;
+    cin >> tc;
+    while(tc--){
+        solve();
+    }
+    return 0;
 }
