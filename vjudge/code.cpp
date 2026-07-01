@@ -1,60 +1,55 @@
-// IN THE NAME OF ALLAH
-//#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
-#define fast ios_base::sync_with_stdio(false); cin.tie(nullptr);
-#define int long long
-#define ll long long
-#define nl '\n'
-#define sz(x) ((int)(x).size())
-#define all(x) (x).begin(), (x).end()
-#define rall(x) (x).rbegin(), (x).rend()
+using namespace __gnu_pbds;
 
-void solve() {
-    string str; int t;
-    while(cin>>str>>t){
-        if(str=="0" and t==0) return;
-        
-        int val = stoll(str,nullptr, 0);
-        // cout<<val<<nl;
-        int score=0;
-        while(t--){
-            string s; cin>>s;
-            int n; cin>>n;
-            if(s=="i"){
-                if(n==val) score++;
-                val = n;
-            }
-            else if(s=="i++"){
-                if(n==val) score++;
-                val = n+1;
-            }
-            else if(s=="++i"){
-                val++;
-                if(n==val) score++;
-                val = n;
-            }
-            else if(s=="i--"){
-                if(val==n) score++;
-                val = n-1;
-            }
-            else if(s=="--i"){
-                val--;
-                if(val==n) score++;
-                val = n;
-            }
+#define ll long long int
+#define pb push_back
+#define all(x) x.begin(),x.end()
+#define Max 10000000000000000
+
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T>
+using min_heap = priority_queue<T, vector<T>, greater<T>>;
+
+int main()
+{
+
+    ll t;
+    cin >> t;
+
+    while (t--) {
+        ll n;
+        cin >> n;
+        vector<ll> a;
+        for (ll i = 0; i < n; i++){
+            ll x;
+            cin >> x;
+            if(x == 1 && a.empty()) continue;
+            a.pb(x);
         }
-        cout<<score<<nl;
+
+        if(a.size() == 0) {
+            cout << 0 << endl;
+            continue;
+        }
+
+        n = a.size();
+        while (a[n - 1] == 1) {
+            a.pop_back();
+            n--;
+        }
+        for(auto a : a) cout<<a<<" "; cout<<endl;
+        sort(all(a));
+        if(a[0] == a[n - 1]) {
+            cout << 1 << endl;
+            continue;
+        }
+        cout << 2 << endl;
     }
 
-}
-int32_t main() {
-    fast
-    int tc = 1;
-    // cin >> tc;
-    int w = 1;
-    while (tc--) {
-        solve();
-    }
     return 0;
 }
+
