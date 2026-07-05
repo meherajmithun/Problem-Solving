@@ -40,3 +40,12 @@ int32_t main() {
     }
     return 0;
 }
+
+
+Figure 3.2 ct 5 mark
+Chapter 4 assignment 2 (Machine to assembly, assembly to Machine)
+
+Controller ;
+ct - d
+
+
