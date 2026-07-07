@@ -13,19 +13,10 @@ using namespace std;
 void solve() {
     int n; cin>>n;
     string s; cin>>s;
-    int cnt = count(all(s) , '1');
-    if(cnt==n){
-        cout<<"1\n"; return;
+    int cnt = 1;
+    for(int i=1; i<n; i++){
+        if(s[i] != s[i-1]) cnt++;
     }
-    cnt = count(all(s) , '0');
-    if(cnt==n){
-        cout<<"1\n"; return;
-    }
-    cnt = 1;
-    for(int i=0; i<n-1; i++){
-        if(s[i]!=s[i+1]) cnt++;
-    }
-    // cout<<cnt<<nl;
     if(cnt>2) cnt = 1;
     cout<<cnt<<nl;
 }
