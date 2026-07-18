@@ -1,5 +1,4 @@
 // IN THE NAME OF ALLAH
-//#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 using namespace std;
 #define fast ios_base::sync_with_stdio(false); cin.tie(nullptr);
@@ -7,21 +6,25 @@ using namespace std;
 #define nl '\n'
 #define sz(x) ((int)(x).size())
 #define all(x) (x).begin(), (x).end()
-#define rall(x) (x).rbegin(), (x).rend()
 
 void solve() {
     int n; cin>>n;
     vector<int>v(n);
     for(auto &a : v) cin>>a;
-    for(int i=0; i<n/2; i++){
-        if(v[i]==v[i+1] or v[n-i-1]==v[n-i-2]) swap(v[i], v[n-i-1]);
+    if(n&1){
+        cout<<"NO\n"; return;
     }
-    // for(auto a : v) cout<<a<<" "; cout<<nl;
-    int ans = 0;
-    for(int i=0; i<n-1; i++){
-        if(v[i]==v[i+1]) ans++;
+    int a=0,b=0;
+    for(auto i : v){
+        if(i==1) a++;
+        else b+=i;
     }
-    cout<<ans<<nl;
+    // cout<<a<<" "<<b<<nl;
+    if(a==b){
+        cout<<"YES\n"; return;
+    }
+    if((a+b)%4==0) cout<<"YES\n";
+    else cout<<"NO\n";
 }
 
 int32_t main() {
