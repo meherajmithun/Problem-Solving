@@ -3,17 +3,13 @@ using namespace std;
 #define int long long
 
 void solve(){
-    int n,s; cin>>n>>s;
-    vector<int>v(n),pre(n+1),suf(n+1);
-    for(int i=0; i<n; i++){
-        cin>>v[i];
-        pre[i+1] = pre[i]+v[i];
+    int n; cin>>n;
+    int k = 1;
+    for(int i=1; i<=n; i++) {
+        cout<<k<<" "; 
+        k *= 2;
     }
-    for(auto a : pre) cout<<a<<" "; cout<<endl;
-    for(int i=n-1; i>=0; i--){
-        suf[i] = suf[i+1]+v[i];
-    }
-    for(auto a : suf) cout<<a<<" "; cout<<endl;
+    cout<<endl;
 }
 
 int32_t main(){
