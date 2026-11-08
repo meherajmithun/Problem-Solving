@@ -1,25 +1,68 @@
+// IN THE NAME OF ALLAH
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long
 
-void solve(){
-    int n; cin>>n;
-    int k = 1;
-    for(int i=1; i<=n; i++) {
-        cout<<k<<" "; 
-        k *= 2;
+#define int long long
+#define fast ios_base::sync_with_stdio(false); cin.tie(nullptr);
+#define nl '\n'
+
+vector<int> a;
+vector<int> leftSum, rightSum;
+
+void generateSums(int l, int r, vector<int> &v) {
+    int len = r - l;
+
+    for (int mask = 0; mask < (1LL << len); mask++) {
+        int sum = 0;
+
+        for (int i = 0; i < len; i++) {
+            if (mask & (1LL << i)) {
+                sum += a[l + i];
+            }
+        }
+
+        if (sum <= 1000000000LL)
+            v.push_back(sum);
     }
-    cout<<endl;
 }
 
-int32_t main(){
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+void solve() {
+    int n, x;
+    cin >> n >> x;
 
-    int tc = 1;
-    cin >> tc;
-    while(tc--){
-        solve();
+    a.resize(n);
+
+    for (auto &v : a)
+        cin >> v;
+
+    int mid = n / 2;
+
+    generateSums(0, mid, leftSum);
+    generateSums(mid, n, rightSum);
+
+    sort(rightSum.begin(), rightSum.end());
+
+    int ans = 0;
+
+    for (int sum : leftSum) {
+        if (sum > x)
+            continue;
+
+        int need = x - sum;
+
+        auto lo = lower_bound(rightSum.begin(), rightSum.end(), need);
+        auto hi = upper_bound(rightSum.begin(), rightSum.end(), need);
+
+        ans += hi - lo;
     }
+
+    cout << ans << nl;
+}
+
+int32_t main() {
+    fast;
+
+    solve();
+
     return 0;
 }

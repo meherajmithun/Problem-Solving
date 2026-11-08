@@ -1,5 +1,3 @@
-Runnn
-Runnn
-Runnn
-Runnn
-Runnn
+NO
+YES
+NO

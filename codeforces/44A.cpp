@@ -1,9 +1,23 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include<stdio.h>
+int main()
+{
+    int N,K;
+    scanf("%d %d",&N,&K);
 
-int main(){
-    string s; cin>>s;
-    for(int i=0; i<n; i++){
-        cout<<s[i]-'a'<<" ";
+    int x,y;
+
+    if(x>N && y>N)
+    {
+        if((x*y)<K)
+        {
+            printf("%d %d\n",x,y);
+        }
     }
+    else
+    {
+        printf("-1\n");
+    }
+    printf("%d %d\n",x,y);
+
+   return 0;
 }

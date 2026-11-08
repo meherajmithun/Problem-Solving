@@ -1,23 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long
+#define ll long long
 
 void solve(){
-    int x,y ; cin>>x>>y;
-    if(x==y){
-        cout<<"0\n"; return;
+    ll h;
+    int n;
+    cin>>h>>n;
+    vector<ll>a(n),c(n);
+    for(ll &x:a){
+        cin>>x;
     }
-    if(x>y){
-        int dif = x-y;
-        if(dif&1){
-            cout<<(dif/2)+2<<endl;
-        }
-        else{
-            cout<<(dif/2)<<endl;
-        }
-        return;
+    for(ll &x:c){
+        cin>>x;
     }
-    cout<<y-x<<endl;
+    auto ok = [&](ll turns){
+         ll damage =0;
+         for(int i=0;i<n;i++){
+             ll times = (turns - 1) / c[i] + 1;
+
+             if(times >= (h-damage + a[i]-1 )/ a[i])
+             return true;
+
+            damage+= a[i] * times;
+
+            
+         }
+         return false;
+    };
+    ll lo =1,hi = 4e18,mid;
+    while(lo<hi){
+        mid = lo+(hi-lo)/2;
+        if(ok(mid))
+            hi = mid;
+        else
+            lo = mid+1;
+    }
+    cout<<lo<<endl;
 }
 
 int32_t main(){
